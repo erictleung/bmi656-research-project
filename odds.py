@@ -28,3 +28,14 @@ for n in files: # loop through list of files that should be directory
 ###################
 ### IMPORT DATA ###
 ###################
+
+# focus on KEGG Pathway Genes
+with open("KEGG_Pathway_Genes.txt", "r") as fh:
+    fh.readline().rstrip() # remove header
+    
+    kegg = [] # empty list to put KEGG Pathway Genes file in
+    
+    for line in fh.readlines(): # loop through all lines of file
+        words = line.rstrip().split("\t") # split line by tab
+        kegg.append(words) # add to master KEGG pathway list
+
