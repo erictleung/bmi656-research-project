@@ -39,3 +39,26 @@ with open("KEGG_Pathway_Genes.txt", "r") as fh:
         words = line.rstrip().split("\t") # split line by tab
         kegg.append(words) # add to master KEGG pathway list
 
+# focus on H5N1 VN1203 UNIVERSE Probes
+with open("H5N1_VN1203_UNIVERSE_Probes.txt", "r") as fh:
+    fh.readline().rstrip() # remove header
+
+    universe = {} # empty dictionary for universe probes
+
+    for line in fh.readlines():
+        words = line.rstrip().split("\t") # split line by tab
+        universe[words[0]] = words[1] # save in dictionary
+
+print universe["A_23_P100011"]
+
+# focus on H5N1 VN1203 DE Probes
+with open("H5N1_VN1203_DE_Probes.txt", "r") as fh:
+    fh.readline().rstrip() # remove header
+
+    de = {} # empty dictionary for universe probes
+
+    for line in fh.readlines():
+        words = line.rstrip().split("\t") # split line by tab
+        de[words[0]] = words[1] # save in dictionary
+
+print de["A_23_P100539"]
