@@ -76,7 +76,7 @@ with open("H5N1_VN1203_DE_Probes.txt", "r") as fh:
     deProbes = de.values() # get all DE probes
 
 #################
-### ODD RATIO ###
+### ODDS RATIO ###
 #################
 
 # variables/data types
