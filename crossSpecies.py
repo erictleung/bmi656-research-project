@@ -37,4 +37,15 @@ pathwayInfo = opener.open(pathwaySite + humanID)
 rawResults = pathwayInfo.read() # get results
 listOfResults = rawResults.split("\n") # put each line into list
 
-# parse through HTML results
+genes = [] # empty liist to put all genes in
+
+# parse through HTML page list
+for line in listOfResults:
+    words = line.strip().split() # remove white space
+    if len(words) == 0: # if there is an empty line
+        continue # skip the empty line
+    elif words[0] == "GENE": # for the case with GENE first
+        genes.append(words[2].strip(";")) # add gene name list
+    elif re.match(r"\d+", words[0]): # ID number in front of gene
+        genes.append(words[1].strip(";")) # add gene name to list
+        
