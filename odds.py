@@ -106,8 +106,11 @@ for pathway in kegg: # loop through all pathways
     d = float(len(nonDE.difference(genes)))
 
     # find pathways with odds ratio greater than 1.5
-    if (a*d)/(b*c) > 1.5:
+    OR  = (a*d)/(b*c)
+    if OR > 1.5:
         sigPathways.append(name)
+
+    print name, OR
 
 ####################
 ### SIG PATHWAYS ###
@@ -116,3 +119,11 @@ for pathway in kegg: # loop through all pathways
 print "Here are pathways with an OR >1.5:"
 for path in sigPathways:
     print path[1]
+
+######################
+### CHOOSE PATHWAY ###
+######################
+
+import sys # load necessary package to interact with stdout
+myPathway = sigPathways[1][1] # select pathway to study
+sys.stdout.write(myPathway) # write to stdout
