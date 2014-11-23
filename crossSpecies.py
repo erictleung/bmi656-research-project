@@ -41,13 +41,27 @@ genes = [] # empty liist to put all genes in
 
 # parse through HTML page list
 for line in listOfResults:
+    temp = [] # list to put results
     words = line.strip().split() # remove white space
     if len(words) == 0: # if there is an empty line
         continue # skip the empty line
     elif words[0] == "GENE": # for the case with GENE first
         genes.append(words[2].strip(";")) # add gene name list
     elif re.match(r"\d+", words[0]): # ID number in front of gene
-        genes.append(words[1].strip(";")) # add gene name to list
+        entry = line.strip().split(";") # split into two parts
+
+        # get ID numbere and name
+        first = entry[0] # take first entry
+        idName = first.split() # split string by whitespace
+        temp.extend(idName) # add ID and gene name to temp
+
+        # get gene full name
+        second = entry[1] # take second entry
+        name = second.split("[") # split by "[" char
+        temp.append(name[0].strip())
+
+        # put Gene ID, Name, Full name into final list
+        genes.append(temp)
 
 #############################
 ### OBTAIN GENE SEQUENCES ###
@@ -59,15 +73,15 @@ from Bio import Entrez
 email = "leunge@ohsu.edu"
 Entrez.email = email
 
-handle = Entrez.esearch(db="protein", term="TNF")
+handle = Entrez.esearch(db="protein", term=genes[0][2])
 record = Entrez.read(handle)
 ids = record["IdList"]
 handle.close()
-# for i in ids:
-#     handle = Entrez.esummary(db="protein", id=i)
-#     summary = Entrez.read(handle)
-#     print summary
-#     handle.close()
+#for i in ids:
+#    handle = Entrez.esummary(db="protein", id=i)
+#    summary = Entrez.read(handle)
+#    print summary
+#    handle.close()
 
 #########################
 ### CLUSTAL ALIGNMENT ###
