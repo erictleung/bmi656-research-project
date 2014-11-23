@@ -1,0 +1,5 @@
+Get Small Cell Lunch Cancer Pathway for Humans
+http://rest.kegg.jp/get/hsa05222
+
+Searching for "Small cell lung cancer" pathway
+http://rest.kegg.jp/find/pathway/%22Small%20cell%20lung%20cancer%22
