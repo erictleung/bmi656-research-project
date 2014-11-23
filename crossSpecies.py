@@ -48,4 +48,12 @@ for line in listOfResults:
         genes.append(words[2].strip(";")) # add gene name list
     elif re.match(r"\d+", words[0]): # ID number in front of gene
         genes.append(words[1].strip(";")) # add gene name to list
-        
+
+#########################
+### CLUSTAL ALIGNMENT ###
+#########################
+
+import Bio.Align.Applications import ClustalwCommandline
+
+# create Clustalw command
+# command = ClustalwCommandline("clustalw2", infile = "")
