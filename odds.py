@@ -57,7 +57,8 @@ with open("H5N1_VN1203_UNIVERSE_Probes.txt", "r") as fh:
         words = line.rstrip().split("\t") # split line by tab
         universe[words[0]] = words[1] # save in dictionary
 
-    universeProbes = universe.values() # get all probes in universe
+    universeGenes = universe.values() # get all genes in universe
+    universeSet = set(universeGenes)
     
 # focus on H5N1 VN1203 DE Probes
 # SAMPLE FORMAT
@@ -73,7 +74,8 @@ with open("H5N1_VN1203_DE_Probes.txt", "r") as fh:
         words = line.rstrip().split("\t") # split line by tab
         de[words[0]] = words[1] # save in dictionary
 
-    deProbes = de.values() # get all DE probes
+    deGenes = de.values() # get all DE genes
+    deSet = set(deGenes)
 
 #################
 ### ODDS RATIO ###
@@ -87,23 +89,30 @@ sigPathways = [] # list of pathways with signif num DE genes
 # target pathway |    a     |    b 
 # non-pathway    |    c     |    d
 
-# loop through pathways to get genes
+# loop through pathways to get genes for target pathway
 for pathway in kegg: # loop through all pathways
     name = pathway[0:2] # get pathway ID and pathway name
     genes = pathway[2:] # get probes in certain pathway
-    genes = set(genes) # make a set of genes
-
-    # make other data into sets
-    universeSet = set(universeProbes)
-    deSet = set(deProbes)
+    genes = set(genes) # make a set of genes in pathway
 
     # set values based on matrix shown above
-    nonDE = universeSet.difference(deSet) # get non-DE genes
-    a = float(len(genes.intersection(deSet)))
+    keggDE = universeSet.intersection(deSet) # make sure DE genes in KEGG
+    nonDE = universeSet.difference(keggDE) # get non-DE genes
+
+    # odds ratio pieces as defined above
+    a = float(len(genes.intersection(keggDE)))
     b = float(len(genes.intersection(nonDE)))
-    c = float(len(deSet.difference(genes)))
-    d = float(len(nonDE.intersection(universeSet.difference(genes))))
+    c = float(len(keggDE.difference(genes)))
+    d = float(len(nonDE.difference(genes)))
 
     # find pathways with odds ratio greater than 1.5
     if (a*d)/(b*c) > 1.5:
         sigPathways.append(name)
+
+####################
+### SIG PATHWAYS ###
+####################
+
+print "Here are pathways with an OR >1.5:"
+for path in sigPathways:
+    print path[1]
