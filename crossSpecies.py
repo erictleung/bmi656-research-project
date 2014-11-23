@@ -14,9 +14,9 @@
 import sys
 pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
 
-#########################
-### GET PATHWAY GENES ###
-#########################
+#############################
+### EXTRACT PATHWAY GENES ###
+#############################
 
 # search for pathway ID
 import urllib
@@ -49,11 +49,31 @@ for line in listOfResults:
     elif re.match(r"\d+", words[0]): # ID number in front of gene
         genes.append(words[1].strip(";")) # add gene name to list
 
+#############################
+### OBTAIN GENE SEQUENCES ###
+#############################
+
+from Bio import Entrez
+
+# provide email address
+email = "leunge@ohsu.edu"
+Entrez.email = email
+
+handle = Entrez.esearch(db="protein", term="TNF")
+record = Entrez.read(handle)
+ids = record["IdList"]
+handle.close()
+# for i in ids:
+#     handle = Entrez.esummary(db="protein", id=i)
+#     summary = Entrez.read(handle)
+#     print summary
+#     handle.close()
+
 #########################
 ### CLUSTAL ALIGNMENT ###
 #########################
 
-import Bio.Align.Applications import ClustalwCommandline
+from Bio.Align.Applications import ClustalwCommandline
 
 # create Clustalw command
 # command = ClustalwCommandline("clustalw2", infile = "")
