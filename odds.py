@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
-# Name: Eric Leung
+# Name:       Eric Leung
 # Assignment: Final Project
-# Script: odds.py
+# Script:     odds.py
 # Description:
 #    Use Python to perform odds ratio calculation to identify pathways
 #    containing a larger number of differentially expressed genes than would
 #    be expected by chance
-# Example: "python odds.py"
+# Example:    "python odds.py"
 
 ##################
 ### FILE CHECK ###
