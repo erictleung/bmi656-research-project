@@ -46,11 +46,24 @@ for line in listOfResults:
     if len(words) == 0: # if there is an empty line
         continue # skip the empty line
     elif words[0] == "GENE": # for the case with GENE first
-        genes.append(words[2].strip(";")) # add gene name list
+        entry = line.strip().split(";") # split into two parts
+
+        # get ID numbers
+        first = entry[0] # take first entry
+        idName = first.split() # split string by whitespace
+        temp.extend(idName[1:]) # add ID and gene name to temp
+
+        # get gene full name
+        second = entry[1] # take second entry
+        name = second.split("[") # split by "[" char
+        temp.append(name[0].strip())
+
+        # put Gene ID, Name, Full name into final list
+        genes.append(temp)
     elif re.match(r"\d+", words[0]): # ID number in front of gene
         entry = line.strip().split(";") # split into two parts
 
-        # get ID numbere and name
+        # get ID number and name
         first = entry[0] # take first entry
         idName = first.split() # split string by whitespace
         temp.extend(idName) # add ID and gene name to temp
@@ -73,7 +86,7 @@ from Bio import Entrez
 email = "leunge@ohsu.edu"
 Entrez.email = email
 
-handle = Entrez.esearch(db="protein", term=genes[0][2])
+handle = Entrez.esearch(db="nuccore", term=genes[0][2])
 record = Entrez.read(handle)
 ids = record["IdList"]
 handle.close()
