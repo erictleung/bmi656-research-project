@@ -84,11 +84,30 @@ from Bio import Entrez
 
 # provide email address
 email = "leunge@ohsu.edu"
-Entrez.email = email
+Entrez.email = email # add email to object
 
-handle = Entrez.esearch(db="nuccore", term=genes[0][2])
+# create search
+andWord = " AND "
+geneName = "\"" + genes[0][2] + "\" "
+organism = " \"Homo sapien\" "
+searchTerm = geneName + andWord + organism
+
+searchTerm = genes[0][0]
+
+print searchTerm
+
+handle = Entrez.esearch(db="gene", term=searchTerm)
 record = Entrez.read(handle)
 ids = record["IdList"]
+handle.close()
+print ids
+
+handle = Entrez.efetch(db="gene", id=searchTerm, retmode="xml")
+
+fasta_record = handle.read()
+print fasta_record
+
+
 handle.close()
 #for i in ids:
 #    handle = Entrez.esummary(db="protein", id=i)
