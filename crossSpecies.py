@@ -81,39 +81,34 @@ for line in listOfResults:
 #############################
 
 from Bio import Entrez
+import xml.etree.ElementTree as et
 
 # provide email address
 email = "leunge@ohsu.edu"
 Entrez.email = email # add email to object
 
 # create search
-andWord = " AND "
-geneName = "\"" + genes[0][2] + "\" "
-organism = " \"Homo sapien\" "
-searchTerm = geneName + andWord + organism
+for gene in genes:
+    searchTerm = gene[0]
+    print searchTerm
 
-searchTerm = genes[0][0]
+    handle = Entrez.efetch(db="gene", id=searchTerm, retmode="xml")
 
-print searchTerm
+    fasta_record = handle.read() # XML file of gene
 
-handle = Entrez.esearch(db="gene", term=searchTerm)
-record = Entrez.read(handle)
-ids = record["IdList"]
-handle.close()
-print ids
+    handle.close() # close connection to database
 
-handle = Entrez.efetch(db="gene", id=searchTerm, retmode="xml")
+    root = et.fromstring(fasta_record)
 
-fasta_record = handle.read()
-print fasta_record
-
-
-handle.close()
-#for i in ids:
-#    handle = Entrez.esummary(db="protein", id=i)
-#    summary = Entrez.read(handle)
-#    print summary
-#    handle.close()
+    locus = root[0].find("Entrezgene_locus")
+    product = locus[0].find("Gene-commentary_products")
+    comment = product[0].findall("Gene-commentary_accession")
+    for access in product:
+        name = access.find("Gene-commentary_accession").text
+        if "NM" in name: # if it is a refseq nucleotide
+            nmName = name
+            break # exit out of for loop
+    print nmName
 
 #########################
 ### CLUSTAL ALIGNMENT ###
