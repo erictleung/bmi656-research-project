@@ -150,9 +150,18 @@ import xml.etree.ElementTree as et
 email = "leunge@ohsu.edu"
 Entrez.email = email # add email to object
 
+# dictionary of dictionaries for accession IDs for each species
+allAccession = {}
+
 # loop through all species
 for org in genes.keys():
+    # loop through genes
     for gene in genes[org]:
+        target = gene[0] # focus on ID
+        geneName = gene[1].upper() # focus on uppercase name
+        if geneName not in allAccession.keys(): # if first instance
+            allAccession[geneName] = {} # make dictionary
+            allAccession[geneName][org] = get_accession(target)        
 
 #########################
 ### CLUSTAL ALIGNMENT ###
