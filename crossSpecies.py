@@ -86,7 +86,7 @@ def get_genes(listOfResults):
 
 def get_accession(geneSearch):
     """
-    INPUT: gene
+    INPUT: gene ID number
     OUTPUT: gene accession number
     """
     # create search
@@ -94,19 +94,21 @@ def get_accession(geneSearch):
     fasta_record = handle.read() # XML file of gene
     handle.close() # close connection to database
 
+    # parse through XML file
     root = et.fromstring(fasta_record)
-    
     locus = root[0].find("Entrezgene_locus")
     product = locus[0].find("Gene-commentary_products")
     for access in product:
         name = access.find("Gene-commentary_accession").text
         if "NM" in name: # if it is a refseq nucleotide
             return name
-            #break # exit out of for loop
 
 ###################
 ### GET PATHWAY ###
 ###################
+"""
+Take in argument from command line as target pathway
+"""
 
 import sys
 pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
@@ -114,6 +116,9 @@ pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
 #############################
 ### EXTRACT PATHWAY GENES ###
 #############################
+"""
+Extract gene list for each species
+"""
 
 import re
 import urllib
@@ -132,8 +137,11 @@ for org in species.keys():
     genes[org] = get_genes(orgList)
 
 #############################
-### OBTAIN GENE SEQUENCES ###
+### OBTAIN mRNA ACCESSION ###
 #############################
+"""
+Get mRNA accession numbers for each gene
+"""
 
 from Bio import Entrez
 import xml.etree.ElementTree as et
@@ -145,8 +153,6 @@ Entrez.email = email # add email to object
 # loop through all species
 for org in genes.keys():
     for gene in genes[org]:
-        print gene[0]
-        print get_accession(gene[0])
 
 #########################
 ### CLUSTAL ALIGNMENT ###
