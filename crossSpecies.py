@@ -163,6 +163,16 @@ for org in genes.keys():
             allAccession[geneName] = {} # make dictionary
             allAccession[geneName][org] = get_accession(target)        
 
+#############################
+### OBTAIN mRNA SEQUENCES ###
+#############################
+"""
+Loop through accession numbers to get sequences
+"""
+
+# dictionary of dictionaries for sequences for each species
+allSequences = {}
+
 #########################
 ### CLUSTAL ALIGNMENT ###
 #########################
