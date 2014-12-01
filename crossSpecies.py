@@ -8,6 +8,82 @@
 # Description: Examine cross-species conservation of chosen pathway genes
 # Example:     "python crossSpecies.py PATHWAY_NAME"
 
+#################
+### FUNCTIONS ###
+#################
+
+def parse_kegg_html(pathway, species):
+    """
+    INPUT: pathway name, species of interest
+    OUTPUT: HTML output from KEGG API
+    """
+    # search for pathway ID
+    opener = urllib.FancyURLopener({})
+    searchSite = "http://rest.kegg.jp/find/pathway/" # original site
+    straight = opener.open(searchSite+pathway) # put together query
+    rawResults = straight.read().rstrip().split("\t") # get results
+    pathID = rawResults[0].split(":")[1] # get pathway ID
+
+    # convert ID to human's
+    ID = re.findall(r"[0-9]+", pathID) # extract ID number
+    ID = species + ID[0] # convert path ID to human
+    
+    # get pathway genes
+    pathwaySite = "http://rest.kegg.jp/get/" # searching site
+    pathwayInfo = opener.open(pathwaySite + ID)
+    rawResults = pathwayInfo.read() # get results
+    listOfResults = rawResults.split("\n") # put each line into list
+    
+    return listOfResults
+
+def get_genes(listOfResults):
+    """
+    INPUT: HTML output from KEGG API
+    OUTPUT: gene ID, gene name, gene description in a list
+    NOTE: need to run get_pathway function prior
+    """
+    genes = [] # empty liist to put all genes in
+    
+    # parse through HTML page list
+    for line in listOfResults:
+        temp = [] # list to put results
+        words = line.strip().split() # remove white space
+        if len(words) == 0: # if there is an empty line
+            continue # skip the empty line
+        elif words[0] == "GENE": # for the case with GENE first
+            entry = line.strip().split(";") # split into two parts
+    
+            # get ID numbers
+            first = entry[0] # take first entry
+            idName = first.split() # split string by whitespace
+            temp.extend(idName[1:]) # add ID and gene name to temp
+    
+            # get gene full name
+            second = entry[1] # take second entry
+            name = second.split("[") # split by "[" char
+            temp.append(name[0].strip())
+    
+            # put Gene ID, Name, Full name into final list
+            genes.append(temp)
+        elif re.match(r"\d+", words[0]): # ID number in front of gene
+            entry = line.strip().split(";") # split into two parts
+    
+            # get ID number and name
+            first = entry[0] # take first entry
+            idName = first.split() # split string by whitespace
+            temp.extend(idName) # add ID and gene name to temp
+    
+            # get gene full name
+            second = entry[1] # take second entry
+            name = second.split("[") # split by "[" char
+            temp.append(name[0].strip())
+    
+            # put Gene ID, Name, Full name into final list
+            genes.append(temp)
+
+    # return list of genes
+    return genes
+
 ###################
 ### GET PATHWAY ###
 ###################
@@ -19,63 +95,17 @@ pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
 ### EXTRACT PATHWAY GENES ###
 #############################
 
-# search for pathway ID
+import re
 import urllib
-opener = urllib.FancyURLopener({})
-searchSite = "http://rest.kegg.jp/find/pathway/" # original site
-straight = opener.open(searchSite+pathway) # put together query
-rawResults = straight.read().rstrip().split("\t") # get results
-pathID = rawResults[0].split(":")[1] # get pathway ID
 
-# convert ID to human's
-import re # import regex package
-ID = re.findall(r"[0-9]+", pathID) # extract ID number
-humanID = "hsa" + ID[0] # convert path ID to human
+# species keys
+human = "hsa"
+mouse = "mmu"
+chimp = "ptr"
 
-# get pathway genes
-pathwaySite = "http://rest.kegg.jp/get/" # searching site
-pathwayInfo = opener.open(pathwaySite + humanID)
-rawResults = pathwayInfo.read() # get results
-listOfResults = rawResults.split("\n") # put each line into list
-
-genes = [] # empty liist to put all genes in
-
-# parse through HTML page list
-for line in listOfResults:
-    temp = [] # list to put results
-    words = line.strip().split() # remove white space
-    if len(words) == 0: # if there is an empty line
-        continue # skip the empty line
-    elif words[0] == "GENE": # for the case with GENE first
-        entry = line.strip().split(";") # split into two parts
-
-        # get ID numbers
-        first = entry[0] # take first entry
-        idName = first.split() # split string by whitespace
-        temp.extend(idName[1:]) # add ID and gene name to temp
-
-        # get gene full name
-        second = entry[1] # take second entry
-        name = second.split("[") # split by "[" char
-        temp.append(name[0].strip())
-
-        # put Gene ID, Name, Full name into final list
-        genes.append(temp)
-    elif re.match(r"\d+", words[0]): # ID number in front of gene
-        entry = line.strip().split(";") # split into two parts
-
-        # get ID number and name
-        first = entry[0] # take first entry
-        idName = first.split() # split string by whitespace
-        temp.extend(idName) # add ID and gene name to temp
-
-        # get gene full name
-        second = entry[1] # take second entry
-        name = second.split("[") # split by "[" char
-        temp.append(name[0].strip())
-
-        # put Gene ID, Name, Full name into final list
-        genes.append(temp)
+humanList = parse_kegg_html(pathway, "hsa")
+genes = get_genes(humanList)
+print genes[0:5]
 
 #############################
 ### OBTAIN GENE SEQUENCES ###
