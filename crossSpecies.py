@@ -91,7 +91,8 @@ Entrez.email = email # add email to object
 # create search
 for gene in genes:
     searchTerm = gene[0]
-    print searchTerm
+    print "We search for: ", searchTerm
+    print "Gene name: ", gene[1]
 
     handle = Entrez.efetch(db="gene", id=searchTerm, retmode="xml")
 
@@ -101,15 +102,18 @@ for gene in genes:
 
     root = et.fromstring(fasta_record)
 
+    temp = [] # put all mRNA accession numbers
+
     locus = root[0].find("Entrezgene_locus")
     product = locus[0].find("Gene-commentary_products")
-    comment = product[0].findall("Gene-commentary_accession")
     for access in product:
         name = access.find("Gene-commentary_accession").text
+        temp.append(name) # keep name for now
         if "NM" in name: # if it is a refseq nucleotide
             nmName = name
             break # exit out of for loop
-    print nmName
+    print "We keep: ", nmName
+    print "Here's the rest: ", temp, "\n"
 
 #########################
 ### CLUSTAL ALIGNMENT ###
