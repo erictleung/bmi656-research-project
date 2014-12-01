@@ -98,14 +98,18 @@ pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
 import re
 import urllib
 
-# species keys
-human = "hsa"
-mouse = "mmu"
-chimp = "ptr"
+# species legend
+species = {"Human":"hsa",
+           "Mouse":"mmu",
+           "Chimp":"ptr"}
 
-humanList = parse_kegg_html(pathway, "hsa")
-genes = get_genes(humanList)
-print genes[0:5]
+# dictionary for each species
+genes = {}
+
+# loop through species
+for org in species.keys():
+    orgList = parse_kegg_html(pathway, species[org])
+    genes[org] = get_genes(orgList)
 
 #############################
 ### OBTAIN GENE SEQUENCES ###
