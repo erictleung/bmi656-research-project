@@ -1,8 +1,14 @@
 Get Small Cell Lunch Cancer Pathway for Humans
 http://rest.kegg.jp/get/hsa05222
 
+RIG-I-like receptor signaling pathway in Mouse
+http://rest.kegg.jp/get/mmu04622
+
 Searching for "Small cell lung cancer" pathway
 http://rest.kegg.jp/find/pathway/%22Small%20cell%20lung%20cancer%22
+
+Searching for “RIG-I-like receptor signaling pathway”
+http://rest.kegg.jp/find/pathway/%22RIG-I-like%20receptor%20signaling%20pathway%22
 
 NCBI Database Output Types
 http://www.ncbi.nlm.nih.gov/books/NBK25499/table/
