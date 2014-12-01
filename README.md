@@ -24,10 +24,8 @@ an odds ratio greater than 1.5 to study further in the next section.
 
 # Deliverables 
 
-+ Write Part I and Part II as separate python programs that are both called from a linux bash script. This
-script should check for the existence of relevant files and check that Part I has successfully completed
-before running Part II. Turn in both python programs and the bash script. (60 points)
-+ Screen shot of pathway with highlighted differentially expressed genes (10 points)
-+ Boxplot labeled with p-value of Mann-Whitney statistic (10 points)
-+ 1-2 page write-up summarizing your findings. This should be a word document that includes at least 2
-figures corresponding to your pathway and boxplot. Discuss the limitations of the study and any obstacles/problems you experienced. Discuss the relevance of the pathway to H5N1 infection. Discuss why the conservation of the affected pathway might be important for the study of H5N1 (Hint: think about our use of model organisms to study infectious diseases). (20 points)
++ (60 points) Write Part I and Part II as separate python programs that are both called from a linux bash script. This script should check for the existence of relevant files and check that Part I has successfully completed before running Part II. Turn in both python programs and the bash script. 
++ (10 points) Screen shot of pathway with highlighted differentially expressed genes 
++ (10 points) Boxplot labeled with p-value of **Mann-Whitney statistic** 
++ (20 points) 1-2 page write-up summarizing your findings. This should be a word document that includes at least 2
+figures corresponding to your pathway and boxplot. Discuss the limitations of the study and any obstacles/problems you experienced. Discuss the relevance of the pathway to H5N1 infection. Discuss why the conservation of the affected pathway might be important for the study of H5N1 (Hint: think about our use of model organisms to study infectious diseases). 
