@@ -84,6 +84,26 @@ def get_genes(listOfResults):
     # return list of genes
     return genes
 
+def get_accession(geneSearch):
+    """
+    INPUT: gene
+    OUTPUT: gene accession number
+    """
+    # create search
+    handle = Entrez.efetch(db="gene", id=geneSearch, retmode="xml")
+    fasta_record = handle.read() # XML file of gene
+    handle.close() # close connection to database
+
+    root = et.fromstring(fasta_record)
+    
+    locus = root[0].find("Entrezgene_locus")
+    product = locus[0].find("Gene-commentary_products")
+    for access in product:
+        name = access.find("Gene-commentary_accession").text
+        if "NM" in name: # if it is a refseq nucleotide
+            return name
+            #break # exit out of for loop
+
 ###################
 ### GET PATHWAY ###
 ###################
@@ -122,32 +142,11 @@ import xml.etree.ElementTree as et
 email = "leunge@ohsu.edu"
 Entrez.email = email # add email to object
 
-# create search
-for gene in genes:
-    searchTerm = gene[0]
-    print "We search for: ", searchTerm
-    print "Gene name: ", gene[1]
-
-    handle = Entrez.efetch(db="gene", id=searchTerm, retmode="xml")
-
-    fasta_record = handle.read() # XML file of gene
-
-    handle.close() # close connection to database
-
-    root = et.fromstring(fasta_record)
-
-    temp = [] # put all mRNA accession numbers
-
-    locus = root[0].find("Entrezgene_locus")
-    product = locus[0].find("Gene-commentary_products")
-    for access in product:
-        name = access.find("Gene-commentary_accession").text
-        temp.append(name) # keep name for now
-        if "NM" in name: # if it is a refseq nucleotide
-            nmName = name
-            break # exit out of for loop
-    print "We keep: ", nmName
-    print "Here's the rest: ", temp, "\n"
+# loop through all species
+for org in genes.keys():
+    for gene in genes[org]:
+        print gene[0]
+        print get_accession(gene[0])
 
 #########################
 ### CLUSTAL ALIGNMENT ###
