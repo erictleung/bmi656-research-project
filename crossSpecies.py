@@ -162,6 +162,20 @@ for org in genes.keys():
         if geneName not in allAccession.keys(): # if first instance
             allAccession[geneName] = {} # make dictionary
             allAccession[geneName][org] = get_accession(target)        
+        else: # if this isn't first instance
+            allAccession[geneName][org] = get_accession(target)
+
+##########################
+### CREATE DIRECTORIES ###
+##########################
+"""
+Create directories for analysis
+"""
+
+import os
+
+# create folder to put sequences
+os.makedirs("sequenceAnalysis")
 
 #############################
 ### OBTAIN mRNA SEQUENCES ###
