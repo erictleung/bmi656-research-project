@@ -136,6 +136,8 @@ for org in species.keys():
     orgList = parse_kegg_html(pathway, species[org])
     genes[org] = get_genes(orgList)
 
+# get set of common genes among all species
+
 #############################
 ### OBTAIN mRNA ACCESSION ###
 #############################
@@ -185,7 +187,12 @@ Loop through accession numbers to get sequences
 """
 
 # dictionary of dictionaries for sequences for each species
+# KEY:gene, VALUE:dictionary[org]=sequence
 allSequences = {}
+
+acc1 = "NM_001278" # allAccession["CHUK"]["Human"]
+# print allAccession["CHUK"]["Mouse"]
+# print allAccession["CHUK"]["Chimp"]
 
 #########################
 ### CLUSTAL ALIGNMENT ###
