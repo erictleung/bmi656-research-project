@@ -277,7 +277,7 @@ for gene in allAccession.keys(): # loop through genes
     fasta_records = handle.read()
     handle.close()
 
-    print fasta_record
+    print fasta_records
 
 #########################
 ### CLUSTAL ALIGNMENT ###
