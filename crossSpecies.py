@@ -177,6 +177,9 @@ OUTPUT: genes
 This output is a dictionary of lists where the key is the organism/species
 (e.g. "Human") and the values are lists of lists of genes formatted like so:
 [ID_NUMBER, GENE_NAME, GENE_DESCRIPTION]
+
+The last part of this section will only keep genes from others species (Chimps
+and Mice) if they are in the set of genes in Humans.
 """
 
 import re
