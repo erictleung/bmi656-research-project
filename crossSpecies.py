@@ -118,7 +118,9 @@ def keep_genes_common_with_humans(genes):
     # get genes that in common with human pathway
     for org in otherSpecies:
         temp = set([]) # create empty set
-    
+   
+        # NOTE: write commands to keep genes removed
+ 
         # get genes in species that are common with humans
         for gene in genes[org]: # loop through genes
             temp.add(gene[1].upper()) # add gene to a set
@@ -189,7 +191,8 @@ Entrez.email = email # add email to object
 # dictionary of dictionaries for accession IDs for each species
 allAccession = {}
 
-# loop through all species
+# loop through all species to create dictionary
+# KEYS:gene, VALUE:dictionary with accession for diff species
 for org in genes.keys():
     # loop through genes
     for gene in genes[org]:
@@ -210,7 +213,7 @@ Create directories for analysis
 
 import os
 
-# create folder to put sequences
+# create folder to put sequences in if it doesn't exist
 if not os.path.exists("sequenceAnalysis"):
     os.makedirs("sequenceAnalysis")
 
@@ -225,9 +228,16 @@ Loop through accession numbers to get sequences
 # KEY:gene, VALUE:dictionary[org]=sequence
 allSequences = {}
 
-acc1 = "NM_001278" # allAccession["CHUK"]["Human"]
-# print allAccession["CHUK"]["Mouse"]
-# print allAccession["CHUK"]["Chimp"]
+acc1 = "NM_001278"    # allAccession["CHUK"]["Human"]
+acc2 = "NM_001162410" # allAccession["CHUK"]["Mouse"]
+acc3 = "NM_001280221" # allAccession["CHUK"]["Chimp"]
+
+geneList = [acc1, acc2, acc3]
+
+handle = Entrez.efetch(db="nuccore", id=','.join(geneList), 
+                       rettype="fasta",retmode="text")
+fasta_records = handle.read()
+handle.close()
 
 #########################
 ### CLUSTAL ALIGNMENT ###
