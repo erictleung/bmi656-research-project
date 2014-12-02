@@ -10,4 +10,4 @@
 pathway=$(python odds.py)
 
 # examine cross-species conservation of pathway genes
-# python crossSpecies.py $pathway
+python crossSpecies.py $pathway
