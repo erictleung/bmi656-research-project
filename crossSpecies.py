@@ -138,6 +138,8 @@ def keep_genes_common_with_humans(genes):
 ###################
 """
 Take in argument from command line as target pathway
+OUTPUT: pathway
+This output has the name of the pathway that will be used in the analysis
 """
 
 import sys
@@ -153,6 +155,11 @@ The species that will be analyzed are:
 - Homo sapiens (Humans)
 - Mus musculus (Mouse)
 - Pan troglodytes (Chimpanzee)
+
+OUTPUT: genes
+This output is a dictionary of lists where the key is the organism/species
+(e.g. "Human") and the values are lists of lists of genes formatted like so:
+[ID_NUMBER, GENE_NAME, GENE_DESCRIPTION]
 """
 
 import re
@@ -179,6 +186,11 @@ genes = keep_genes_common_with_humans(genes)
 #############################
 """
 Get mRNA accession numbers for each gene
+OUTPUT: allAccession
+
+The output is a dictionary of dictionaries where the key is a gene and the
+values are a dictionary with their key as the organism (e.g. "Human") and 
+the value is the accession number for the gene from that organism 
 """
 
 from Bio import Entrez
@@ -209,6 +221,8 @@ for org in genes.keys():
 ##########################
 """
 Create directories for analysis
+OUTPUT: None
+The output here is to create the folder for sequence analysis
 """
 
 import os
@@ -238,6 +252,8 @@ handle = Entrez.efetch(db="nuccore", id=','.join(geneList),
                        rettype="fasta",retmode="text")
 fasta_records = handle.read()
 handle.close()
+
+
 
 #########################
 ### CLUSTAL ALIGNMENT ###
