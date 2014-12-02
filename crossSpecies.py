@@ -103,7 +103,7 @@ def get_accession(geneSearch):
         if "NM" in name: # if it is a refseq nucleotide
             return name
 
-def get_genes_common_with_humans(genes):
+def keep_genes_common_with_humans(genes):
     """
     INPUT: genes list from each species
     OUTPUT: genes list with genes only in common with human
@@ -169,26 +169,8 @@ for org in species.keys():
     orgList = parse_kegg_html(pathway, species[org])
     genes[org] = get_genes(orgList)
 
-# get set of common genes among all species
-otherSpecies = ["Mouse", "Chimp"]
-
-humanSet = set([]) # empty human set
-for gene in genes["Human"]: # go through human genes
-    humanSet.add(gene[1].upper()) # add gene to set
-
-# get genes that in common with human pathway
-for org in otherSpecies:
-    temp = set([]) # create empty set
-
-    # get genes in species that are common with humans
-    for gene in genes[org]: # loop through genes
-        temp.add(gene[1].upper()) # add gene to a set
-    genesInHuman = humanSet.intersection(temp) # find genes in human
-    
-    # keep genes that are common with humans
-    for gene in genes[org]:
-        if gene[1] not in genesInHuman:
-            genes[org].remove(gene) # remove gene from list
+# keep genes in other species that are common with humans
+genes = keep_genes_common_with_humans(genes)
 
 #############################
 ### OBTAIN mRNA ACCESSION ###
