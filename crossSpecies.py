@@ -98,10 +98,27 @@ def get_accession(geneSearch):
     root = et.fromstring(fasta_record)
     locus = root[0].find("Entrezgene_locus")
     product = locus[0].find("Gene-commentary_products")
+    temp = [] # line of accession numbers
+    
+    # get all mRNA accession numbers for the gene
     for access in product:
         name = access.find("Gene-commentary_accession").text
-        if "NM" in name: # if it is a refseq nucleotide
-            return name
+        #if "NM" in name: # if it is a refseq nucleotide
+        #    return name
+        temp.append(name)
+    
+    # return RefSeq mRNA if it exists
+    for num in temp:
+        if "NM" in num:
+            return num
+
+    # return predicted mRNA if it exists
+    for num in temp:
+        if "XM" in num:
+            return num
+
+    # return something
+    return temp[0]
 
 def keep_genes_common_with_humans(genes):
     """
@@ -191,6 +208,8 @@ OUTPUT: allAccession
 The output is a dictionary of dictionaries where the key is a gene and the
 values are a dictionary with their key as the organism (e.g. "Human") and 
 the value is the accession number for the gene from that organism 
+KEY: organism
+VALUE: accession
 """
 
 from Bio import Entrez
@@ -248,12 +267,17 @@ acc3 = "NM_001280221" # allAccession["CHUK"]["Chimp"]
 
 geneList = [acc1, acc2, acc3]
 
-handle = Entrez.efetch(db="nuccore", id=','.join(geneList), 
+for gene in allAccession.keys(): # loop through genes
+    temp = [] # list to put accession numbers in
+    for org in allAccession[gene].keys(): # loop through species
+        temp.append(allAccession[gene][org]) # add accession to temp list
+
+    handle = Entrez.efetch(db="nuccore", id=','.join(temp), 
                        rettype="fasta",retmode="text")
-fasta_records = handle.read()
-handle.close()
+    fasta_records = handle.read()
+    handle.close()
 
-
+    print fasta_record
 
 #########################
 ### CLUSTAL ALIGNMENT ###
