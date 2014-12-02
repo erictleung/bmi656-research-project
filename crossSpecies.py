@@ -177,7 +177,8 @@ Create directories for analysis
 import os
 
 # create folder to put sequences
-os.makedirs("sequenceAnalysis")
+if not os.path.exists("sequenceAnalysis"):
+    os.makedirs("sequenceAnalysis")
 
 #############################
 ### OBTAIN mRNA SEQUENCES ###
