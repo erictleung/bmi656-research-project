@@ -193,5 +193,14 @@ allSequences = {}
 
 from Bio.Align.Applications import ClustalwCommandline
 
-# create Clustalw command
-# command = ClustalwCommandline("clustalw2", infile = "")
+# create Clustalw command for Windows
+# clustalw_exe = r""
+# assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
+# clustalw_cline = ClustalwCommandline(clustalw_exe, infile="")
+# stdout, stderr = clustalw_cline()
+
+# create Clustalw command for Mac
+# clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # for Mac
+# assert os.path.isfile(clustalw_app), "Clustal W executable missin"
+# clustalw_cline = ClustalwCommandline(clustalw_app, infile="")
+# stdout, stderr = clustalw_cline()
