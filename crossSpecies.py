@@ -262,9 +262,11 @@ for org in species.keys():
 
 # keep genes in other species that are common with humans
 genes = keep_genes_common_with_humans(genes)
+total = 0 # total number of genes
 print "\nThe remaining number of genes from each species is:"
 for org in genes.keys():
     print org + " has " + str(len(genes[org])) + " number of genes"
+    total += len(genes[org]) # add to number of total genes
 print "\nFinished filtering out only Human genes.\n"
 
 #############################
@@ -301,13 +303,24 @@ allAccession = {}
 
 # loop through all species to create dictionary
 # KEYS:gene, VALUE:dictionary with accession for diff species
+i = 1 # index to keep track of gene number script is on
+step = total*2/100 # make dash for every 2%
+x = 1 # number of tick marks to make
 for org in genes.keys():
     numAccess = len(genes[org]) # total num of genes to get
-    i = 1 # index to keep track of
+    j = 1 # number of genes for a particular species
 
     # loop through genes
     for gene in genes[org]:
-        print str(i)+" out of "+str(numAccess)+" genes in "+org
+
+        # progress bar
+        if i % step == 0:
+            x += 1
+            print "[ {0:50} ]".format("-" * x)
+        else:
+            print "[ {0:50} ]".format("-" * x)
+
+        print str(j)+" out of "+str(numAccess)+" genes in "+org
         target = gene[0] # focus on ID
         geneName = gene[1].upper() # focus on uppercase name
         print "Searching for " + geneName + " in a " + org + "..."
@@ -317,6 +330,7 @@ for org in genes.keys():
         else: # if this isn't first instance
             allAccession[geneName][org] = get_accession(target)
         i += 1 # increment index
+        j += 1 # increment for species genes
 
 print "All accession IDs for all sequences in mind have been fetched."
 
@@ -363,7 +377,10 @@ except ImportError:
 # clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe" # windows
 clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
 assert os.path.isfile(clustalw_app), "Clustal W executable missing"
-filePlace = "./sequenceAnalysis/MAPK12/MAPK12.aln"
-clustalw_cline = ClustalwCommandline(clustalw_app, infile="filePlace")
-# stdout, stderr = clustalw_cline()
-clustalw_cline()
+directories = os.listdir("./sequenceAnalysis/") # genes in analysis
+for gene in directories:
+    filePlace = "./sequenceAnalysis/"+gene+"/"+gene+".fasta"
+    clustalw_cline = ClustalwCommandline(clustalw_app, infile=filePlace)
+    # stdout, stderr = clustalw_cline()
+    clustalw_cline()
+    print "Successfully aligned the " + gene + " genes."
