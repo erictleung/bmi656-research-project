@@ -180,8 +180,10 @@ def save_sequences(allAccession):
         handle.close()
 
         os.makedirs("./sequenceAnalysis/"+gene) # make folder for gene
-        directoryFile = "./sequenceAnalysis/" + gene + "/" + gene # sequences
-    
+        directory = "./sequenceAnalysis/" + gene + "/"
+        fileName =  gene + ".fasta" # sequences
+        directoryFile = directory + fileName # combine to get complete    
+
         fh = open(directoryFile, "w") # open file to put sequences
         fh.write(fasta_records) # write sequences to file
         print "Sequences written into ./sequenceAnalysis/" + gene + "\n"
@@ -241,6 +243,9 @@ for org in species.keys():
 
 # keep genes in other species that are common with humans
 genes = keep_genes_common_with_humans(genes)
+print "\nThe remaining number of genes from each species is:"
+for org in genes.keys():
+    print org + " has " + len(genes[org]) + " number of genes"
 print "\nFinished filtering out only Human genes.\n"
 
 #############################
@@ -309,7 +314,7 @@ Loop through accession numbers to get sequences
 """
 
 save_sequences(allAccession)
-print "\nSuccessfully saved all sequences that we want for analysis.\n"
+print "Successfully saved all sequences that we want for analysis.\n"
 
 #########################
 ### CLUSTAL ALIGNMENT ###
