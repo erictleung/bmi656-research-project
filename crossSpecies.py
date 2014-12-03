@@ -110,14 +110,17 @@ def get_accession(geneSearch):
     # return RefSeq mRNA if it exists
     for num in temp:
         if "NM" in num:
+            print "Got " + num + "\n"
             return num
 
     # return predicted mRNA if it exists
     for num in temp:
         if "XM" in num:
+            print "Got " + num + "\n"
             return num
 
     # return something
+    print "Got " + num + "\n"
     return temp[0]
 
 def keep_genes_common_with_humans(genes):
@@ -196,7 +199,10 @@ genes = {}
 # loop through species
 for org in species.keys():
     orgList = parse_kegg_html(pathway, species[org])
+    print "KEGG website was extracted for a " + org
     genes[org] = get_genes(orgList)
+    print "KEGG website was parsed for " + org + " genes.\n"
+
 
 # keep genes in other species that are common with humans
 genes = keep_genes_common_with_humans(genes)
@@ -232,11 +238,14 @@ for org in genes.keys():
     for gene in genes[org]:
         target = gene[0] # focus on ID
         geneName = gene[1].upper() # focus on uppercase name
+        print "Searching for " + geneName + " in a " + org
         if geneName not in allAccession.keys(): # if first instance
             allAccession[geneName] = {} # make dictionary
             allAccession[geneName][org] = get_accession(target)        
         else: # if this isn't first instance
             allAccession[geneName][org] = get_accession(target)
+
+print "All accession IDs for all sequences in mind have been fetched."
 
 ##########################
 ### CREATE DIRECTORIES ###
@@ -253,6 +262,8 @@ import os
 if not os.path.exists("sequenceAnalysis"):
     os.makedirs("sequenceAnalysis")
 
+print "sequenceAnalysis directory created to save sequences and analyses\n"
+
 #############################
 ### OBTAIN mRNA SEQUENCES ###
 #############################
@@ -263,12 +274,6 @@ Loop through accession numbers to get sequences
 # dictionary of dictionaries for sequences for each species
 # KEY:gene, VALUE:dictionary[org]=sequence
 allSequences = {}
-
-acc1 = "NM_001278"    # allAccession["CHUK"]["Human"]
-acc2 = "NM_001162410" # allAccession["CHUK"]["Mouse"]
-acc3 = "NM_001280221" # allAccession["CHUK"]["Chimp"]
-
-geneList = [acc1, acc2, acc3]
 
 for gene in allAccession.keys(): # loop through genes
     temp = [] # list to put accession numbers in
