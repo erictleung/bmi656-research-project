@@ -129,7 +129,7 @@ def keep_genes_common_with_humans(genes):
     OUTPUT: genes list with genes only in common with human
     """
     print "Filtering out genes in non-Human",
-    print "species that do not exist in Humans"
+    print "species that do not exist in Humans.\n"
 
     # get set of common genes among all species
     otherSpecies = ["Mouse", "Chimp"]
@@ -179,12 +179,13 @@ def save_sequences(allAccession):
         fasta_records = handle.read()
         handle.close()
 
-        directoryFile = "./sequenceAnalysis/" + gene + "/" + gene
+        os.makedirs("./sequenceAnalysis/"+gene) # make folder for gene
+        directoryFile = "./sequenceAnalysis/" + gene + "/" + gene # sequences
     
-        fh = open(directoryFile, "w")
-        fh.write(fasta_records)
+        fh = open(directoryFile, "w") # open file to put sequences
+        fh.write(fasta_records) # write sequences to file
         print "Sequences written into ./sequenceAnalysis/" + gene + "\n"
-        fh.close()
+        fh.close() # close file
 
 ###################
 ### GET PATHWAY ###
@@ -240,7 +241,7 @@ for org in species.keys():
 
 # keep genes in other species that are common with humans
 genes = keep_genes_common_with_humans(genes)
-print "Finished filtering out only Human genes.\n"
+print "\nFinished filtering out only Human genes.\n"
 
 #############################
 ### OBTAIN mRNA ACCESSION ###
@@ -308,18 +309,6 @@ Loop through accession numbers to get sequences
 """
 
 save_sequences(allAccession)
-
-for gene in allAccession.keys(): # loop through genes
-    temp = [] # list to put accession numbers in
-    for org in allAccession[gene].keys(): # loop through species
-        temp.append(allAccession[gene][org]) # add accession to temp list
-
-    handle = Entrez.efetch(db="nuccore", id=','.join(temp), 
-                       rettype="fasta",retmode="text")
-    fasta_records = handle.read()
-    handle.close()
-
-    print fasta_records
 
 #########################
 ### CLUSTAL ALIGNMENT ###
