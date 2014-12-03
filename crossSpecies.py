@@ -129,7 +129,7 @@ def keep_genes_common_with_humans(genes):
     OUTPUT: genes list with genes only in common with human
     """
     print "Filtering out genes in non-Human",
-    print "species that do not exist in Humans.\n"
+    print "species that do not exist in Humans...\n"
 
     # get set of common genes among all species
     otherSpecies = ["Mouse", "Chimp"]
@@ -262,7 +262,7 @@ for org in species.keys():
 genes = keep_genes_common_with_humans(genes)
 print "\nThe remaining number of genes from each species is:"
 for org in genes.keys():
-    print org + " has " + len(genes[org]) + " number of genes"
+    print org + " has " + str(len(genes[org])) + " number of genes"
 print "\nFinished filtering out only Human genes.\n"
 
 #############################
@@ -300,8 +300,12 @@ allAccession = {}
 # loop through all species to create dictionary
 # KEYS:gene, VALUE:dictionary with accession for diff species
 for org in genes.keys():
+    numAccess = len(genes[org]) # total num of genes to get
+    i = 1 # index to keep track of
+
     # loop through genes
     for gene in genes[org]:
+        print str(i)+"out of "+str(numAccess)+" genes in "+org
         target = gene[0] # focus on ID
         geneName = gene[1].upper() # focus on uppercase name
         print "Searching for " + geneName + " in a " + org + "..."
@@ -310,6 +314,7 @@ for org in genes.keys():
             allAccession[geneName][org] = get_accession(target)        
         else: # if this isn't first instance
             allAccession[geneName][org] = get_accession(target)
+        i += 1 # increment index
 
 print "All accession IDs for all sequences in mind have been fetched."
 
@@ -352,16 +357,9 @@ try:
 except ImportError:
     pass
 
-# create Clustalw command for Windows 
 # change path for clustalw as necessary
-# clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe"
-# assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
-# clustalw_cline = ClustalwCommandline(clustalw_exe, infile="")
-# stdout, stderr = clustalw_cline()
-
-# create Clustalw command for Mac
-# change path for clustalw as necessary
-# clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # for Mac
-# assert os.path.isfile(clustalw_app), "Clustal W executable missin"
+# clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe" # windows
+# clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
+# assert os.path.isfile(clustalw_app), "Clustal W executable missing"
 # clustalw_cline = ClustalwCommandline(clustalw_app, infile="")
 # stdout, stderr = clustalw_cline()
