@@ -173,6 +173,12 @@ def save_sequences(allAccession):
             temp.append(allAccession[gene][org]) # add accession to temp list
             print "Got sequence in " + org
 
+        # only keep genes that have sequences for all three species
+        if len(temp) != 3:
+            print "There seems to be <3 sequences for analysis."
+            print "Thus we will skip using the " + gene + " gene\n"
+            continue
+
         handle = Entrez.efetch(db="nuccore", id=','.join(temp), 
                            rettype="fasta",retmode="text")
         print "Sequences for " + gene + " successfully obtained!"
