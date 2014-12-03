@@ -128,6 +128,9 @@ def keep_genes_common_with_humans(genes):
     INPUT: genes list from each species
     OUTPUT: genes list with genes only in common with human
     """
+    print "Filtering out genes in non-Human",
+    print "species that do not exist in Humans"
+
     # get set of common genes among all species
     otherSpecies = ["Mouse", "Chimp"]
     
@@ -148,7 +151,8 @@ def keep_genes_common_with_humans(genes):
         
         # keep genes that are common with humans
         for gene in genes[org]:
-            if gene[1] not in genesInHuman:
+            if gene[1].upper() not in genesInHuman:
+                print "Removing " + gene[1] + " from " + org
                 genes[org].remove(gene) # remove gene from list
 
     return genes
@@ -167,14 +171,15 @@ def save_sequences(allAccession):
         temp = [] # list to put accession numbers in
         for org in allAccession[gene].keys(): # loop through species
             temp.append(allAccession[gene][org]) # add accession to temp list
-    
+            print "Got sequence in " + org
+
         handle = Entrez.efetch(db="nuccore", id=','.join(temp), 
                            rettype="fasta",retmode="text")
         print "Sequences for " + gene + " successfully obtained!"
         fasta_records = handle.read()
         handle.close()
 
-        directoryFile = "./sequenceAnalysis/" + gene
+        directoryFile = "./sequenceAnalysis/" + gene + "/" + gene
     
         fh = open(directoryFile, "w")
         fh.write(fasta_records)
@@ -235,6 +240,7 @@ for org in species.keys():
 
 # keep genes in other species that are common with humans
 genes = keep_genes_common_with_humans(genes)
+print "Finished filtering out only Human genes.\n"
 
 #############################
 ### OBTAIN mRNA ACCESSION ###
@@ -249,6 +255,7 @@ the value is the accession number for the gene from that organism
 KEY: organism
 VALUE: accession
 """
+print "Beginning mRNA accession requests...\n"
 
 from Bio import Entrez
 import xml.etree.ElementTree as et
