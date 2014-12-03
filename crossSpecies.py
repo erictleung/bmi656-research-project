@@ -185,8 +185,10 @@ def save_sequences(allAccession):
         fasta_records = handle.read()
         handle.close()
 
-        os.makedirs("./sequenceAnalysis/"+gene) # make folder for gene
-        directory = "./sequenceAnalysis/" + gene + "/"
+        path = "./sequenceAnalysis/" + gene # name of directory
+        if not os.path.isdir(path): # check if directory exists
+            os.makedirs(path) # make folder for gene
+        directory = path + "/"
         fileName =  gene + ".fasta" # sequences
         directoryFile = directory + fileName # combine to get complete    
 
@@ -305,7 +307,7 @@ for org in genes.keys():
 
     # loop through genes
     for gene in genes[org]:
-        print str(i)+"out of "+str(numAccess)+" genes in "+org
+        print str(i)+" out of "+str(numAccess)+" genes in "+org
         target = gene[0] # focus on ID
         geneName = gene[1].upper() # focus on uppercase name
         print "Searching for " + geneName + " in a " + org + "..."
@@ -359,7 +361,9 @@ except ImportError:
 
 # change path for clustalw as necessary
 # clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe" # windows
-# clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
-# assert os.path.isfile(clustalw_app), "Clustal W executable missing"
-# clustalw_cline = ClustalwCommandline(clustalw_app, infile="")
+clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
+assert os.path.isfile(clustalw_app), "Clustal W executable missing"
+filePlace = "./sequenceAnalysis/MAPK12/MAPK12.aln"
+clustalw_cline = ClustalwCommandline(clustalw_app, infile="filePlace")
 # stdout, stderr = clustalw_cline()
+clustalw_cline()
