@@ -204,7 +204,11 @@ OUTPUT: pathway
 This output has the name of the pathway that will be used in the analysis
 """
 
-import sys
+try:
+    import sys
+except ImportError:
+    pass
+
 pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
 print "The " + pathway + " pathway will be used for this analysis.\n"
 
@@ -228,8 +232,15 @@ The last part of this section will only keep genes from others species (Chimps
 and Mice) if they are in the set of genes in Humans.
 """
 
-import re
-import urllib
+try:
+    import re
+except ImportError:
+    pass
+
+try:
+    import urllib
+except ImportError:
+    pass
 
 # species legend
 species = {"Human":"hsa",
@@ -269,8 +280,15 @@ VALUE: accession
 """
 print "Beginning mRNA accession requests...\n"
 
-from Bio import Entrez
-import xml.etree.ElementTree as et
+try:
+    from Bio import Entrez
+except ImportError:
+    pass
+
+try:
+    import xml.etree.ElementTree as et
+except ImportError:
+    pass
 
 # provide email address
 email = "leunge@ohsu.edu"
@@ -304,7 +322,10 @@ OUTPUT: None
 The output here is to create the folder for sequence analysis
 """
 
-import os
+try:
+    import os
+except ImportError:
+    pass
 
 # create folder to put sequences in if it doesn't exist
 if not os.path.exists("sequenceAnalysis"):
@@ -326,7 +347,10 @@ print "Successfully saved all sequences that we want for analysis.\n"
 ### CLUSTAL ALIGNMENT ###
 #########################
 
-from Bio.Align.Applications import ClustalwCommandline
+try:
+    from Bio.Align.Applications import ClustalwCommandline
+except ImportError:
+    pass
 
 # create Clustalw command for Windows 
 # change path for clustalw as necessary
