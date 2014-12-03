@@ -378,9 +378,17 @@ except ImportError:
 clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
 assert os.path.isfile(clustalw_app), "Clustal W executable missing"
 directories = os.listdir("./sequenceAnalysis/") # genes in analysis
+totalAlign = len(directories) # number of alignments to perform
+i = 1 # alignment at currently
 for gene in directories:
+    print "Starting "+str(i)+" out of "+str(totalAlign)+" alignments"
     filePlace = "./sequenceAnalysis/"+gene+"/"+gene+".fasta"
     clustalw_cline = ClustalwCommandline(clustalw_app, infile=filePlace)
     # stdout, stderr = clustalw_cline()
-    clustalw_cline()
-    print "Successfully aligned the " + gene + " genes."
+    try:
+        clustalw_cline()
+    except:
+        pass
+        print "Couldn't align"
+    print "Successfully aligned the " + gene + " genes!\n"
+    i += 1 # increment index
