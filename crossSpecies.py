@@ -317,13 +317,15 @@ print "\nSuccessfully saved all sequences that we want for analysis.\n"
 
 from Bio.Align.Applications import ClustalwCommandline
 
-# create Clustalw command for Windows
-# clustalw_exe = r""
+# create Clustalw command for Windows 
+# change path for clustalw as necessary
+# clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe"
 # assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
 # clustalw_cline = ClustalwCommandline(clustalw_exe, infile="")
 # stdout, stderr = clustalw_cline()
 
 # create Clustalw command for Mac
+# change path for clustalw as necessary
 # clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # for Mac
 # assert os.path.isfile(clustalw_app), "Clustal W executable missin"
 # clustalw_cline = ClustalwCommandline(clustalw_app, infile="")
