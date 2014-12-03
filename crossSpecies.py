@@ -152,6 +152,34 @@ def keep_genes_common_with_humans(genes):
                 genes[org].remove(gene) # remove gene from list
 
     return genes
+    
+def save_sequences(allAccession):
+    """
+    INPUT: all accession IDs for each species' genes
+    OUTPUT: sequence files for each gene with sequence for each species a 
+        gene exists
+
+    The sequences will be put into the sequenceAnalysis directory that was
+        created.
+    """
+    for gene in allAccession.keys(): # loop through genes
+        print "We're going to find sequences for " + gene
+        temp = [] # list to put accession numbers in
+        for org in allAccession[gene].keys(): # loop through species
+            temp.append(allAccession[gene][org]) # add accession to temp list
+    
+        handle = Entrez.efetch(db="nuccore", id=','.join(temp), 
+                           rettype="fasta",retmode="text")
+        print "Sequences for " + gene + " successfully obtained!"
+        fasta_records = handle.read()
+        handle.close()
+
+        directoryFile = "./sequenceAnalysis/" + gene
+    
+        fh = open(directoryFile, "w")
+        fh.write(fasta_records)
+        print "Sequences written into ./sequenceAnalysis/" + gene + "\n"
+        fh.close()
 
 ###################
 ### GET PATHWAY ###
@@ -164,6 +192,7 @@ This output has the name of the pathway that will be used in the analysis
 
 import sys
 pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
+print "The " + pathway + " pathway will be used for this analysis.\n"
 
 #############################
 ### EXTRACT PATHWAY GENES ###
@@ -238,7 +267,7 @@ for org in genes.keys():
     for gene in genes[org]:
         target = gene[0] # focus on ID
         geneName = gene[1].upper() # focus on uppercase name
-        print "Searching for " + geneName + " in a " + org
+        print "Searching for " + geneName + " in a " + org + "..."
         if geneName not in allAccession.keys(): # if first instance
             allAccession[geneName] = {} # make dictionary
             allAccession[geneName][org] = get_accession(target)        
@@ -271,9 +300,7 @@ print "sequenceAnalysis directory created to save sequences and analyses\n"
 Loop through accession numbers to get sequences
 """
 
-# dictionary of dictionaries for sequences for each species
-# KEY:gene, VALUE:dictionary[org]=sequence
-allSequences = {}
+save_sequences(allAccession)
 
 for gene in allAccession.keys(): # loop through genes
     temp = [] # list to put accession numbers in
