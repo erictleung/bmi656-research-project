@@ -309,6 +309,7 @@ Loop through accession numbers to get sequences
 """
 
 save_sequences(allAccession)
+print "\nSuccessfully saved all sequences that we want for analysis.\n"
 
 #########################
 ### CLUSTAL ALIGNMENT ###
