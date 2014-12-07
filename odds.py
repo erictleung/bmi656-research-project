@@ -147,12 +147,10 @@ for path in sigPathways:
 ### CHOOSE PATHWAY ###
 ######################
 
-import sys # load necessary package to interact with stdout
-myPathway = sigPathways[1][1] # select pathway to study
-sys.stdout.write(myPathway) # write to stdout
-
 # write to a file
 fh = open("pathway_info.csv", "w")
-fh.write(",".join(de_pathways[myPathway][0]) + "\n")
-fh.write(",".join(de_pathways[myPathway][1]) + "\n")
-fh.close()
+myPathway = sigPathways[1][1] # select pathway to study
+fh.write(myPathway + "\n") # write pathway name first
+fh.write(",".join(de_pathways[myPathway][0]) + "\n") # DE genes
+fh.write(",".join(de_pathways[myPathway][1]) + "\n") # non-DE genes
+fh.close() # close file
