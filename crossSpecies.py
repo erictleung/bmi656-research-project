@@ -374,7 +374,14 @@ assert os.path.isfile(clustalw_app), "Clustal W executable missing"
 directories = os.listdir("./sequenceAnalysis/") # genes in analysis
 totalAlign = len(directories) # number of alignments to perform
 i = 1 # alignment at currently
+ticks = 1 # number of tick marks to make
 for gene in directories:
+
+    # progress bar
+    if i/float(totalAlign) > ticks/30.: # if place > percent history
+        ticks += 1 # add one to number of ticks shown
+    print "[ {0:30} ]".format("-" * ticks)
+
     print "Starting "+str(i)+" out of "+str(totalAlign)+" alignments"
     filePlace = "./sequenceAnalysis/"+gene+"/"+gene+".fasta"
     clustalw_cline = ClustalwCommandline(clustalw_app, infile=filePlace)
