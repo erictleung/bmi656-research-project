@@ -379,7 +379,7 @@ except ImportError:
 # clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe" # windows
 clustalw_exe = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
 print "ClustalW is assumed to be located at the following: "
-print clustalw_exe
+print clustalw_exe,"\n"
 assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
 directories = os.listdir("./sequenceAnalysis/") # genes in analysis
 totalAlign = len(directories) # number of alignments to perform
@@ -414,9 +414,20 @@ except ImportError:
     pass
 
 # loop through DE genes
-for gene in de_list[0]:
-    print gene
-    path = "./sequenceAnalysis/" + gene
-    print path
-    if os.path.isdir(path):
-        
+#for gene in de_list[0]:
+gene = "FADD"
+print gene
+path = "./sequenceAnalysis/" + gene
+print path
+temp = [] # empty list to put Hamming distances in
+if os.path.isdir(path):
+    fullPath = path + "/" + gene + ".aln" # alignment file
+    alignment = AlignIO.read(fullPath, "clustal") # get alignment
+    seqLen = len(alignment[0]) # length of sequence alignment
+    totalDist= 0 # total Hamming distance
+    numSeq = len(alignment)
+    for i in range(seqLen):
+        nucSet = set(alignment[:,i]) # get set of all elements in column
+        totalDist += len(nucSet) - 1 # Hamming distance for one position
+    hammingScore = (totalDist / float(numSeq)) / float(seqLen) # normalize
+    temp.append(hammingScore)
