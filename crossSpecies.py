@@ -103,24 +103,22 @@ def get_accession(geneSearch):
     # get all mRNA accession numbers for the gene
     for access in product:
         name = access.find("Gene-commentary_accession").text
-        #if "NM" in name: # if it is a refseq nucleotide
-        #    return name
         temp.append(name)
     
     # return RefSeq mRNA if it exists
     for num in temp:
         if "NM" in num:
-            print "Got " + num + "\n"
+            print "Got accession " + num + "\n"
             return num
 
     # return predicted mRNA if it exists
     for num in temp:
         if "XM" in num:
-            print "Got " + num + "\n"
+            print "Got accession " + num + "\n"
             return num
 
     # return something
-    print "Got " + num + "\n"
+    print "Got accession " + num + "\n"
     return temp[0]
 
 def keep_genes_common_with_humans(genes):
@@ -262,11 +260,11 @@ for org in species.keys():
 
 # keep genes in other species that are common with humans
 genes = keep_genes_common_with_humans(genes)
-total = 0 # total number of genes
+geneNum = {} # total number of genes
 print "\nThe remaining number of genes from each species is:"
 for org in genes.keys():
     print org + " has " + str(len(genes[org])) + " number of genes"
-    total += len(genes[org]) # add to number of total genes
+    geneNum[org] = len(genes[org]) # add to number of total genes
 print "\nFinished filtering out only Human genes.\n"
 
 #############################
@@ -303,33 +301,29 @@ allAccession = {}
 
 # loop through all species to create dictionary
 # KEYS:gene, VALUE:dictionary with accession for diff species
-i = 1 # index to keep track of gene number script is on
-step = total*2/100 # make dash for every 2%
-x = 1 # number of tick marks to make
 for org in genes.keys():
-    numAccess = len(genes[org]) # total num of genes to get
+    numAccess = geneNum[org] # total num of genes to get
     j = 1 # number of genes for a particular species
+    ticks = 1 # number of tick marks to make
 
     # loop through genes
     for gene in genes[org]:
 
         # progress bar
-        if i % step == 0:
-            x += 1
-            print "[ {0:50} ]".format("-" * x)
-        else:
-            print "[ {0:50} ]".format("-" * x)
+        percentTicks = ticks / float(numAccess) # percent we're at
+        if j/float(numAccess) > ticks/30.: # if place > percent history
+            ticks += 1 # add one to number of ticks shown
+        print "[ {0:30} ]".format("-" * ticks)
 
         print str(j)+" out of "+str(numAccess)+" genes in "+org
         target = gene[0] # focus on ID
         geneName = gene[1].upper() # focus on uppercase name
-        print "Searching for " + geneName + " in a " + org + "..."
+        print "Searching for " + geneName + " accession in a " + org + "..."
         if geneName not in allAccession.keys(): # if first instance
             allAccession[geneName] = {} # make dictionary
             allAccession[geneName][org] = get_accession(target)        
         else: # if this isn't first instance
             allAccession[geneName][org] = get_accession(target)
-        i += 1 # increment index
         j += 1 # increment for species genes
 
 print "All accession IDs for all sequences in mind have been fetched."
