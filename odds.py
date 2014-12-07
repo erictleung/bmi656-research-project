@@ -101,6 +101,8 @@ sigPathways = [] # list of pathways with signif num DE genes
 # target pathway |    a     |    b 
 # non-pathway    |    c     |    d
 
+de_pathways = {} # dictionary to store DE and non-DE genes for pathway
+
 # loop through pathways to get genes for target pathway
 for pathway in kegg: # loop through all pathways
     name = pathway[0:2] # get pathway ID and pathway name
@@ -114,14 +116,18 @@ for pathway in kegg: # loop through all pathways
     nonDE = universeSet.difference(keggDE) # get non-DE genes
 
     # odds ratio pieces as defined above
-    aSet = len(genes.intersection(keggDE))
-    a = float(aSet)
-    bSet = len(genes.intersection(nonDE))
-    b = float(bSet)
+    aSet = genes.intersection(keggDE)
+    a = float(len(aSet))
+    bSet = genes.intersection(nonDE)
+    b = float(len(bSet))
     cSet = len(keggDE.difference(genes))
     c = float(cSet)
     dSet = len(nonDE.difference(genes))
     d = float(dSet)
+
+    # add genes to pathway dictionary for DE and non-DE genes
+    allList = [aSet, bSet] # [DE genes, non-DE genes]
+    de_pathways[name[1]] = allList # put into dictionary
 
     # find pathways with odds ratio greater than 1.5
     OR  = (a*d)/(b*c)
@@ -144,3 +150,9 @@ for path in sigPathways:
 import sys # load necessary package to interact with stdout
 myPathway = sigPathways[1][1] # select pathway to study
 sys.stdout.write(myPathway) # write to stdout
+
+# write to a file
+fh = open("pathway_info.csv", "w")
+fh.write(",".join(de_pathways[myPathway][0]) + "\n")
+fh.write(",".join(de_pathways[myPathway][1]) + "\n")
+fh.close()
