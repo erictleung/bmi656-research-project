@@ -200,8 +200,9 @@ def save_sequences(allAccession):
 ###################
 """
 Take in as target pathway
-OUTPUT: pathway
+OUTPUT: pathway, de_list
 This output has the name of the pathway that will be used in the analysis
+plus de_list with DE and non-DE genes
 """
 
 try:
@@ -211,6 +212,11 @@ except ImportError:
 
 with open(sys.argv[1], "r") as fh:
     pathway = fh.readline().rstrip()
+    de_list = [] # list of lists of DE and non-DE genes
+    temp = fh.readline().rstrip().split(",")
+    de_list.append(temp)
+    temp = fh.readline().rstrip().split(",")
+    de_list.append(temp)
 
 print "The " + pathway + " pathway will be used for this analysis.\n"
 
