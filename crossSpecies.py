@@ -377,8 +377,10 @@ except ImportError:
 
 # change path for clustalw as necessary
 # clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe" # windows
-clustalw_app = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
-assert os.path.isfile(clustalw_app), "Clustal W executable missing"
+clustalw_exe = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
+print "ClustalW is assumed to be located at the following: "
+print clustalw_exe
+assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
 directories = os.listdir("./sequenceAnalysis/") # genes in analysis
 totalAlign = len(directories) # number of alignments to perform
 i = 1 # alignment at currently
@@ -392,7 +394,7 @@ for gene in directories:
 
     print "Starting "+str(i)+" out of "+str(totalAlign)+" alignments"
     filePlace = "./sequenceAnalysis/"+gene+"/"+gene+".fasta"
-    clustalw_cline = ClustalwCommandline(clustalw_app, infile=filePlace)
+    clustalw_cline = ClustalwCommandline(clustalw_exe, infile=filePlace)
     # stdout, stderr = clustalw_cline()
     try:
         clustalw_cline()
@@ -401,3 +403,20 @@ for gene in directories:
         print "Couldn't align"
     print "Successfully aligned the " + gene + " genes!\n"
     i += 1 # increment index
+
+#####################
+### DE and non-DE ###
+#####################
+
+try:
+    from Bio import AlignIO
+except ImportError:
+    pass
+
+# loop through DE genes
+for gene in de_list[0]:
+    print gene
+    path = "./sequenceAnalysis/" + gene
+    print path
+    if os.path.isdir(path):
+        
