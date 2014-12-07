@@ -142,6 +142,7 @@ for pathway in kegg: # loop through all pathways
 print "Here are pathways with an OR >1.5:"
 for path in sigPathways:
     print path[1]
+print ""
 
 ######################
 ### CHOOSE PATHWAY ###

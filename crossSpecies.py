@@ -199,7 +199,7 @@ def save_sequences(allAccession):
 ### GET PATHWAY ###
 ###################
 """
-Take in argument from command line as target pathway
+Take in as target pathway
 OUTPUT: pathway
 This output has the name of the pathway that will be used in the analysis
 """
@@ -209,7 +209,9 @@ try:
 except ImportError:
     pass
 
-pathway = "\"" + sys.argv[1] + "\"" # put pathway string together
+with open(sys.argv[1], "r") as fh:
+    pathway = fh.readline().rstrip()
+
 print "The " + pathway + " pathway will be used for this analysis.\n"
 
 #############################

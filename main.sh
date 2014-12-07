@@ -17,4 +17,4 @@ else
 fi
 
 # examine cross-species conservation of pathway genes
-python crossSpecies.py
+python crossSpecies.py pathway_info.csv
