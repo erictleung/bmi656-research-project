@@ -2,6 +2,8 @@
 
 # Name:       Eric Leung
 # Assignment: Final Project
+# Date:       December 8th, 2014
+# Python ver: 2.7.8
 # Script:     odds.py
 # Description:
 #    Use Python to perform odds ratio calculation to identify pathways
