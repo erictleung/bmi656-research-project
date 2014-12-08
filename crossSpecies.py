@@ -450,6 +450,7 @@ except ImportError:
     pass
 
 hammingDist = calculate_hamming(de_list) # calculate normed Hamming distances
+print hammingDist
 
 ######################
 ### STATS ANALYSIS ###
@@ -462,5 +463,22 @@ except ImportError:
 
 print "Performing a Mann-Whitney U test..."
 u, p = stats.mannwhitneyu(hammingDist["de"], hammingDist["nonDe"])
-print "Found a U = " + u
-print "Found a P-value = " + p
+print "Found a U = " + str(u)
+print "Found a P-value = " + str(p)
+
+###############
+### BOXPLOT ###
+###############
+
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    pass
+
+fig, ax = plt.subplots() # make parameters to mess around with
+labels = ["DE", "non-DE"]
+box = plt.boxplot([hammingDist["de"], hammingDist["nonDe"]], labels=labels)
+ax.set_xlabel("Expression Type")
+ax.set_ylabel("Normalized Hamming Distance/Score")
+plt.title("Boxplots of Normalized Hamming Scores for DE and non-DE Genes")
+plt.savefig("boxplot.png") # save boxplot to show in analysis
