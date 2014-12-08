@@ -200,6 +200,7 @@ def calculate_hamming(de_list):
     allGenes = {"de" : de_list[0], "nonDe" : de_list[1]}
     
     hammingDist = {} # empty dictionary for hamming distances
+    count = 0 # count number of genes couldn't find Hamming distance
     
     for geneType in allGenes.keys(): # loop through DE and non-DE
         temp = [] # empty list to put Hamming distances in for gene type
@@ -225,7 +226,10 @@ def calculate_hamming(de_list):
                 print gene + " not found in Human pathway"
                 print "We will have to skip this gene in",
                 print "the statistical analysis\n"
+                count += 1 # add one to the count
         hammingDist[geneType] = temp # add entire list as element to gene type
+        print "We couldn't find " + str(count),
+        print "genes from the original path file\n"
     return hammingDist
 
 ###################
@@ -483,7 +487,7 @@ xtickNames = plt.setp(ax, xticklabels=labels) # create labels for boxplots
 plt.setp(xtickNames, fontsize=10) 
 ax.set_xlabel("Expression Type")
 ax.set_ylabel("Normalized Hamming Distance/Score")
-plt.title("Boxplots of Normalized Hamming Scores for DE and non-DE Genes")
+plt.title("Normalized Hamming Scores for DE and non-DE Genes")
 plt.figtext(0.2,0.8,"p-value = 0.2994",color="black",
             weight="roman",size="medium")
 plt.savefig("boxplot.png") # save boxplot to show in analysis
