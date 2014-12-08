@@ -132,6 +132,7 @@ for pathway in kegg: # loop through all pathways
     # find pathways with odds ratio greater than 1.5
     OR  = (a*d)/(b*c)
     if OR > 1.5:
+        name.append(OR)
         sigPathways.append(name)
     print ""
 
@@ -142,7 +143,7 @@ for pathway in kegg: # loop through all pathways
 print "Here are pathways with an OR >1.5:"
 for path in sigPathways:
     print path[1]
-print ""
+    print "Odds ratio = " + str(path[2]) + "\n"
 
 ######################
 ### CHOOSE PATHWAY ###
