@@ -219,12 +219,12 @@ def calculate_hamming(de_list):
                     totalDist += len(nucSet) - 1 # Hamming dist for 1 position
                 hammingScore = (totalDist / float(numSeq)) / float(seqLen) 
                 temp.append(hammingScore)
-                print "Successfully found normalized Hamming distance for ",
+                print "Successfully found normalized Hamming distance for",
                 print gene, "\n"
             else:
                 print gene + " not found in Human pathway"
                 print "We will have to skip this gene in",
-                print " the statistical analysis\n"
+                print "the statistical analysis\n"
         hammingDist[geneType] = temp # add entire list as element to gene type
     return hammingDist
 
