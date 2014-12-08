@@ -478,7 +478,9 @@ except ImportError:
 
 fig, ax = plt.subplots() # make parameters to mess around with
 labels = ["DE", "non-DE"]
-box = plt.boxplot([hammingDist["de"], hammingDist["nonDe"]], labels=labels)
+box = plt.boxplot([hammingDist["de"], hammingDist["nonDe"]])
+xtickNames = plt.setp(ax, xticklabels=labels) # create labels for boxplots
+plt.setp(xtickNames, fontsize=10) 
 ax.set_xlabel("Expression Type")
 ax.set_ylabel("Normalized Hamming Distance/Score")
 plt.title("Boxplots of Normalized Hamming Scores for DE and non-DE Genes")
