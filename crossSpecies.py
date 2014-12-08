@@ -408,11 +408,13 @@ try:
 except ImportError:
     pass
 
+### UNCOMMENT NECESSARY COMMANDS BELOW TO USE CLUSTAL ###
 # change path for clustalw as necessary
 # clustalw_exe = r"C:\Program Files (x86)\ClustalW2\clustalw2.exe" # windows
-clustalw_exe = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
-print "ClustalW is assumed to be located at the following: "
-print clustalw_exe,"\n"
+# clustalw_exe = r"/Applications/clustalw-2.1-macosx/clustalw2" # macintosh
+# print "ClustalW is assumed to be located at the following: "
+# print clustalw_exe,"\n"
+
 assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
 directories = os.listdir("./sequenceAnalysis/") # genes in analysis
 totalAlign = len(directories) # number of alignments to perform
@@ -427,13 +429,14 @@ for gene in directories:
 
     print "Starting "+str(i)+" out of "+str(totalAlign)+" alignments"
     filePlace = "./sequenceAnalysis/"+gene+"/"+gene+".fasta"
-    clustalw_cline = ClustalwCommandline(clustalw_exe, infile=filePlace)
-    # stdout, stderr = clustalw_cline()
-    try:
-        clustalw_cline()
-    except:
-        pass
-        print "Couldn't align"
+    # clustalw_cline = ClustalwCommandline(clustalw_exe, infile=filePlace)
+    
+    ### ASSUMES CLUSTALW2 IS IN YOUR PATH ###
+    # change to clustalw if that is what you have
+    # otherwise, uncomment the commands above to manually use ClustalW
+    clustalw_cline = ClustalwCommandline("clustalw2", infile=filePlace)
+
+    clustalw_cline() # clustal alignment
     print "Successfully aligned the " + gene + " genes!\n"
     i += 1 # increment index
 
