@@ -223,6 +223,7 @@ def calculate_hamming(de_list):
                 print "We will have to skip this gene in",
                 print " the statistical analysis"
         hammingDist[geneType] = temp # add entire list as element to gene type
+    return hammingDist
 
 ###################
 ### GET PATHWAY ###
