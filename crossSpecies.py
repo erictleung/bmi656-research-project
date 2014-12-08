@@ -195,6 +195,35 @@ def save_sequences(allAccession):
         print "Sequences written into ./sequenceAnalysis/" + gene + "\n"
         fh.close() # close file
 
+def calculate_hamming(de_list):
+    # dictionary encompassing all genes
+    allGenes = {"de" : de_list[0], "nonDe" : de_list[1]}
+    
+    hammingDist = {} # empty dictionary for hamming distances
+    
+    for geneType in allGenes.keys(): # loop through DE and non-DE
+        temp = [] # empty list to put Hamming distances in for gene type
+        for gene in allGenes[geneType]: # loop through genes in gene type
+            print "Calculating Hamming distance for " + gene
+            path = "./sequenceAnalysis/" + gene
+            print "Looking for alignment file in " + path
+            if os.path.isdir(path): # check if alignment exists
+                fullPath = path + "/" + gene + ".aln" # alignment file
+                alignment = AlignIO.read(fullPath, "clustal") # get alignment
+                seqLen = len(alignment[0]) # length of sequence alignment
+                totalDist= 0 # total Hamming distance
+                numSeq = len(alignment) # number of seqs to normalize over
+                for i in range(seqLen): # loop over len of seq alignment
+                    nucSet = set(alignment[:,i]) # set of all elements in column
+                    totalDist += len(nucSet) - 1 # Hamming dist for 1 position
+                hammingScore = (totalDist / float(numSeq)) / float(seqLen) 
+                temp.append(hammingScore)
+            else:
+                print gene + " not found in Human pathway"
+                print "We will have to skip this gene in",
+                print " the statistical analysis"
+        hammingDist[geneType] = temp # add entire list as element to gene type
+
 ###################
 ### GET PATHWAY ###
 ###################
