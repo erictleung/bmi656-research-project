@@ -465,7 +465,7 @@ except ImportError:
 print "Performing a Mann-Whitney U test..."
 u, p = stats.mannwhitneyu(hammingDist["de"], hammingDist["nonDe"])
 print "Found a U = " + str(u)
-print "Found a P-value = " + str(p)
+print "Found a P-value = " + str(p) + "\n"
 
 ###############
 ### BOXPLOT ###
@@ -485,3 +485,5 @@ plt.title("Boxplots of Normalized Hamming Scores for DE and non-DE Genes")
 plt.figtext(0.2,0.8,"p-value = 0.2994",color="black",
             weight="roman",size="medium")
 plt.savefig("boxplot.png") # save boxplot to show in analysis
+print "Saved boxplot of normalized DE and non-DE genes of pathway",
+print "as boxplot.png in the current directory."
