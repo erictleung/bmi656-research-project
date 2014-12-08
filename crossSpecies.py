@@ -446,8 +446,18 @@ try:
 except ImportError:
     pass
 
-hammingDist = calculate_hamming(de_list)
-print hammingDist
+hammingDist = calculate_hamming(de_list) # calculate normed Hamming distances
 
-# dictionary encompassing all genes
-allGenes = {"de" : de_list[0], "nonDe" : de_list[1]}
+######################
+### STATS ANALYSIS ###
+######################
+
+try:
+    from scipy import stats
+except ImportError:
+    pass
+
+print "Performing a Mann-Whitney U test..."
+u, p = stats.mannwhitneyu(hammingDist["de"], hammingDist["nonDe"])
+print "Found a U = " + u
+print "Found a P-value = " + p
