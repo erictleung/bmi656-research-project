@@ -407,27 +407,31 @@ for gene in directories:
 #####################
 ### DE and non-DE ###
 #####################
+"""
+OUTPUT: list with two lists, one with DE, another with non-DE Hamming dist.
+"""
 
 try:
     from Bio import AlignIO
 except ImportError:
     pass
 
+# dictionary encompassing all genes
 allGenes = {"de" : de_list[0], "nonDe" : de_list[1]}
 
-for geneType in allGenes.keys():
-    for gene in allGenes[geneType]:
-        print gene
+for geneType in allGenes.keys(): # loop through DE and non-DE
+    temp = [] # empty list to put Hamming distances in for gene type
+    for gene in allGenes[geneType]: # loop through genes in gene type
+        print "Calculating Hamming distance for " + gene
         path = "./sequenceAnalysis/" + gene
-        print path
-        temp = [] # empty list to put Hamming distances in
-        if os.path.isdir(path):
+        print "Looking for alignment file in " + path
+        if os.path.isdir(path): # check if alignment exists
             fullPath = path + "/" + gene + ".aln" # alignment file
             alignment = AlignIO.read(fullPath, "clustal") # get alignment
             seqLen = len(alignment[0]) # length of sequence alignment
             totalDist= 0 # total Hamming distance
-            numSeq = len(alignment)
-            for i in range(seqLen):
+            numSeq = len(alignment) # number of sequences to normalize over
+            for i in range(seqLen): # loop over length of sequence alignment
                 nucSet = set(alignment[:,i]) # set of all elements in column
                 totalDist += len(nucSet) - 1 # Hamming dist for one position
             hammingScore = (totalDist / float(numSeq)) / float(seqLen) # norm
