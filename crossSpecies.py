@@ -208,6 +208,7 @@ def calculate_hamming(de_list):
             path = "./sequenceAnalysis/" + gene
             print "Looking for alignment file in " + path
             if os.path.isdir(path): # check if alignment exists
+                print gene + " alignment found!"
                 fullPath = path + "/" + gene + ".aln" # alignment file
                 alignment = AlignIO.read(fullPath, "clustal") # get alignment
                 seqLen = len(alignment[0]) # length of sequence alignment
@@ -218,6 +219,8 @@ def calculate_hamming(de_list):
                     totalDist += len(nucSet) - 1 # Hamming dist for 1 position
                 hammingScore = (totalDist / float(numSeq)) / float(seqLen) 
                 temp.append(hammingScore)
+                print "Successfully found normalized Hamming distance for ",
+                print gene, "\n"
             else:
                 print gene + " not found in Human pathway"
                 print "We will have to skip this gene in",
