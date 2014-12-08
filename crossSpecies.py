@@ -440,3 +440,4 @@ for geneType in allGenes.keys(): # loop through DE and non-DE
             print gene + " not found in Human pathway"
             print "We will have to skip this gene in",
             print " the statistical analysis"
+    allGenes[geneType].append(temp) # add entire list as element to gene type
