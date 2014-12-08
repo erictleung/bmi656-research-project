@@ -415,7 +415,6 @@ except ImportError:
 # print "ClustalW is assumed to be located at the following: "
 # print clustalw_exe,"\n"
 
-assert os.path.isfile(clustalw_exe), "Clustal W executable missing"
 directories = os.listdir("./sequenceAnalysis/") # genes in analysis
 totalAlign = len(directories) # number of alignments to perform
 i = 1 # alignment at currently
@@ -453,7 +452,6 @@ except ImportError:
     pass
 
 hammingDist = calculate_hamming(de_list) # calculate normed Hamming distances
-print hammingDist
 
 ######################
 ### STATS ANALYSIS ###
@@ -484,4 +482,6 @@ box = plt.boxplot([hammingDist["de"], hammingDist["nonDe"]], labels=labels)
 ax.set_xlabel("Expression Type")
 ax.set_ylabel("Normalized Hamming Distance/Score")
 plt.title("Boxplots of Normalized Hamming Scores for DE and non-DE Genes")
+plt.figtext(0.2,0.8,"p-value = 0.2994",color="black",
+            weight="roman",size="medium")
 plt.savefig("boxplot.png") # save boxplot to show in analysis
