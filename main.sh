@@ -18,7 +18,7 @@ fi
 
 # examine cross-species conservation of pathway genes
 if [ -f "pathway_info.csv" ] && [ -f "crossSpecies.py" ]; then
-    echo "Script and CSV file for second part of project exists."
+    echo "Script and CSV file for second part of project exists!\n"
     python crossSpecies.py pathway_info.csv
 else
     echo "Script for second part of project doesn't exist."
