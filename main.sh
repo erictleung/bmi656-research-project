@@ -7,6 +7,7 @@
 # Script:     main.sh
 # Desription: This is the main command to 
 # check for files needed for scripts ahead
+# Example:    sh main.sh
 
 # perform OR on pathways and choose pathway
 if [ -f "odds.py" ]; then
