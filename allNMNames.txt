@@ -1,0 +1,350 @@
+We search for:  23586
+Gene name:  DDX58
+We keep:  NM_014314
+Here's the rest:  ['NM_014314'] 
+
+We search for:  64135
+Gene name:  IFIH1
+We keep:  NM_022168
+Here's the rest:  ['NM_022168'] 
+
+We search for:  57506
+Gene name:  MAVS
+We keep:  NM_020746
+Here's the rest:  ['NM_020746'] 
+
+We search for:  79132
+Gene name:  DHX58
+We keep:  NM_024119
+Here's the rest:  ['XR_243681', 'NM_024119'] 
+
+We search for:  7187
+Gene name:  TRAF3
+We keep:  NM_145725
+Here's the rest:  ['NM_145725'] 
+
+We search for:  10010
+Gene name:  TANK
+We keep:  NM_004180
+Here's the rest:  ['XM_005246211', 'NM_004180'] 
+
+We search for:  64343
+Gene name:  AZI2
+We keep:  NM_022461
+Here's the rest:  ['NM_022461'] 
+
+We search for:  9755
+Gene name:  TBKBP1
+We keep:  NM_014726
+Here's the rest:  ['XM_005257859', 'XM_006722199', 'XM_005257862', 'XM_005257861', 'NM_014726'] 
+
+We search for:  8517
+Gene name:  IKBKG
+We keep:  NM_001099856
+Here's the rest:  ['XM_006724853', 'XM_005274763', 'NM_001099856'] 
+
+We search for:  29110
+Gene name:  TBK1
+We keep:  NM_013254
+Here's the rest:  ['NM_013254'] 
+
+We search for:  9641
+Gene name:  IKBKE
+We keep:  NM_014002
+Here's the rest:  ['NM_014002'] 
+
+We search for:  3661
+Gene name:  IRF3
+We keep:  NM_001197128
+Here's the rest:  ['NM_001197128'] 
+
+We search for:  3665
+Gene name:  IRF7
+We keep:  NM_004029
+Here's the rest:  ['NM_004029'] 
+
+We search for:  3439
+Gene name:  IFNA1
+We keep:  NM_024013
+Here's the rest:  ['NM_024013'] 
+
+We search for:  3440
+Gene name:  IFNA2
+We keep:  NM_000605
+Here's the rest:  ['NM_000605'] 
+
+We search for:  3441
+Gene name:  IFNA4
+We keep:  NM_021068
+Here's the rest:  ['NM_021068'] 
+
+We search for:  3442
+Gene name:  IFNA5
+We keep:  NM_002169
+Here's the rest:  ['NM_002169'] 
+
+We search for:  3443
+Gene name:  IFNA6
+We keep:  NM_021002
+Here's the rest:  ['NM_021002'] 
+
+We search for:  3444
+Gene name:  IFNA7
+We keep:  NM_021057
+Here's the rest:  ['NM_021057'] 
+
+We search for:  3445
+Gene name:  IFNA8
+We keep:  NM_002170
+Here's the rest:  ['NM_002170'] 
+
+We search for:  3446
+Gene name:  IFNA10
+We keep:  NM_002171
+Here's the rest:  ['NM_002171'] 
+
+We search for:  3447
+Gene name:  IFNA13
+We keep:  NM_006900
+Here's the rest:  ['NM_006900'] 
+
+We search for:  3448
+Gene name:  IFNA14
+We keep:  NM_002172
+Here's the rest:  ['NM_002172'] 
+
+We search for:  3449
+Gene name:  IFNA16
+We keep:  NM_002173
+Here's the rest:  ['NM_002173'] 
+
+We search for:  3451
+Gene name:  IFNA17
+We keep:  NM_021268
+Here's the rest:  ['NM_021268'] 
+
+We search for:  3452
+Gene name:  IFNA21
+We keep:  NM_002175
+Here's the rest:  ['NM_002175'] 
+
+We search for:  3456
+Gene name:  IFNB1
+We keep:  NM_002176
+Here's the rest:  ['NM_002176'] 
+
+We search for:  3467
+Gene name:  IFNW1
+We keep:  NM_002177
+Here's the rest:  ['NM_002177'] 
+
+We search for:  338376
+Gene name:  IFNE
+We keep:  NM_176891
+Here's the rest:  ['NM_176891'] 
+
+We search for:  56832
+Gene name:  IFNK
+We keep:  NM_020124
+Here's the rest:  ['NM_020124'] 
+
+We search for:  8717
+Gene name:  TRADD
+We keep:  NM_003789
+Here's the rest:  ['NM_003789'] 
+
+We search for:  8772
+Gene name:  FADD
+We keep:  NM_003824
+Here's the rest:  ['NM_003824'] 
+
+We search for:  8737
+Gene name:  RIPK1
+We keep:  NM_003804
+Here's the rest:  ['XM_005249458', 'XM_005249457', 'XM_006715237', 'XM_006715236', 'NM_003804'] 
+
+We search for:  841
+Gene name:  CASP8
+We keep:  NM_001228
+Here's the rest:  ['NM_001228'] 
+
+We search for:  843
+Gene name:  CASP10
+We keep:  NM_032974
+Here's the rest:  ['NM_032974'] 
+
+We search for:  1147
+Gene name:  CHUK
+We keep:  NM_001278
+Here's the rest:  ['XR_246062', 'NM_001278'] 
+
+We search for:  3551
+Gene name:  IKBKB
+We keep:  NM_001556
+Here's the rest:  ['NR_033818', 'NM_001556'] 
+
+We search for:  4793
+Gene name:  NFKBIB
+We keep:  NM_001243116
+Here's the rest:  ['XM_006723227', 'NM_001243116'] 
+
+We search for:  4792
+Gene name:  NFKBIA
+We keep:  NM_020529
+Here's the rest:  ['NM_020529'] 
+
+We search for:  4790
+Gene name:  NFKB1
+We keep:  NM_003998
+Here's the rest:  ['NM_003998'] 
+
+We search for:  5970
+Gene name:  RELA
+We keep:  NM_001145138
+Here's the rest:  ['NM_001145138'] 
+
+We search for:  7186
+Gene name:  TRAF2
+We keep:  NM_021138
+Here's the rest:  ['NM_021138'] 
+
+We search for:  6885
+Gene name:  MAP3K7
+We keep:  NM_145333
+Here's the rest:  ['NM_145333'] 
+
+We search for:  7189
+Gene name:  TRAF6
+We keep:  NM_004620
+Here's the rest:  ['NM_004620'] 
+
+We search for:  4214
+Gene name:  MAP3K1
+We keep:  NM_005921
+Here's the rest:  ['NM_005921'] 
+
+We search for:  5599
+Gene name:  MAPK8
+We keep:  NM_001278547
+Here's the rest:  ['NM_001278547'] 
+
+We search for:  5602
+Gene name:  MAPK10
+We keep:  NM_002753
+Here's the rest:  ['XM_006714267', 'XM_005263131', 'XM_006714269', 'XM_005263135', 'XM_006714268', 'XM_005263129', 'XM_005263130', 'XM_006714270', 'XM_005263136', 'XM_005263138', 'NM_002753'] 
+
+We search for:  5601
+Gene name:  MAPK9
+We keep:  NM_002752
+Here's the rest:  ['NM_002752'] 
+
+We search for:  5600
+Gene name:  MAPK11
+We keep:  NM_002751
+Here's the rest:  ['NM_002751'] 
+
+We search for:  6300
+Gene name:  MAPK12
+We keep:  NM_002969
+Here's the rest:  ['NM_002969'] 
+
+We search for:  5603
+Gene name:  MAPK13
+We keep:  NM_002754
+Here's the rest:  ['NM_002754'] 
+
+We search for:  1432
+Gene name:  MAPK14
+We keep:  NM_139012
+Here's the rest:  ['NM_139012'] 
+
+We search for:  3576
+Gene name:  CXCL8
+We keep:  NM_000584
+Here's the rest:  ['NM_000584'] 
+
+We search for:  7124
+Gene name:  TNF
+We keep:  NM_000594
+Here's the rest:  ['NM_000594'] 
+
+We search for:  3592
+Gene name:  IL12A
+We keep:  NM_000882
+Here's the rest:  ['NM_000882'] 
+
+We search for:  3593
+Gene name:  IL12B
+We keep:  NM_002187
+Here's the rest:  ['NM_002187'] 
+
+We search for:  3627
+Gene name:  CXCL10
+We keep:  NM_001565
+Here's the rest:  ['NM_001565'] 
+
+We search for:  7706
+Gene name:  TRIM25
+We keep:  NM_005082
+Here's the rest:  ['NM_005082'] 
+
+We search for:  1540
+Gene name:  CYLD
+We keep:  NM_015247
+Here's the rest:  ['NM_015247'] 
+
+We search for:  54941
+Gene name:  RNF125
+We keep:  NM_017831
+Here's the rest:  ['NM_017831'] 
+
+We search for:  9636
+Gene name:  ISG15
+We keep:  NM_005101
+Here's the rest:  ['NM_005101'] 
+
+We search for:  9474
+Gene name:  ATG5
+We keep:  NM_001286111
+Here's the rest:  ['NM_001286111'] 
+
+We search for:  9140
+Gene name:  ATG12
+We keep:  NM_001277783
+Here's the rest:  ['NM_001277783'] 
+
+We search for:  79671
+Gene name:  NLRX1
+We keep:  NM_001282358
+Here's the rest:  ['NM_001282358'] 
+
+We search for:  340061
+Gene name:  TMEM173
+We keep:  NM_198282
+Here's the rest:  ['XM_005268445', 'NM_198282'] 
+
+We search for:  55593
+Gene name:  OTUD5
+We keep:  NM_001136159
+Here's the rest:  ['NM_001136159'] 
+
+We search for:  80143
+Gene name:  SIKE1
+We keep:  NM_025073
+Here's the rest:  ['NR_049742', 'NM_025073'] 
+
+We search for:  1654
+Gene name:  DDX3X
+We keep:  NM_001356
+Here's the rest:  ['NM_001356'] 
+
+We search for:  5300
+Gene name:  PIN1
+We keep:  NM_006221
+Here's the rest:  ['NR_038422', 'NR_038830', 'NM_006221'] 
+
+We search for:  26007
+Gene name:  DAK
+We keep:  NM_015533
+Here's the rest:  ['NM_015533'] 
+
