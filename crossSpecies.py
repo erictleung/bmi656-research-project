@@ -9,16 +9,35 @@
 # Description: Examine cross-species conservation of chosen pathway genes
 # Example:     "python crossSpecies.py PATHWAY_NAME"
 
+import urllib
+
 #################
 ### FUNCTIONS ###
 #################
 
 def parse_kegg_html(pathway, species):
     """
-    INPUT: pathway name, species of interest
-    OUTPUT: HTML output from KEGG API
+    Queries the KEGG REST API for specific-pathways
+
+    Parameters
+    ----------
+    pathway : str
+        Name of the pathway
+    species : str
+        Species code for the species you want to query. See
+        https://www.genome.jp/kegg/catalog/org_list.html for three-letter
+        species code.
+
+    Returns
+    -------
+    string
+        The plain text HTML output from KEGG API
+
+    Examples
+    --------
+    >> parse_kegg_html("RIG-I-like receptor signaling pathway", "ptr")
     """
-    # search for pathway ID
+    # Search for pathway ID
     opener = urllib.FancyURLopener({})
     searchSite = "http://rest.kegg.jp/find/pathway/" # original site
     straight = opener.open(searchSite+pathway) # put together query
